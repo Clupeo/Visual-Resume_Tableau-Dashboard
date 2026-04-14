@@ -74,3 +74,5 @@ erDiagram
 - Many-to-many relationships via junction tables
 - All competencies (skills, tools, languages) have proficiency levels
 - Domains connect experiences, projects, and credentials for thematic filtering
+
+---
