@@ -59,7 +59,7 @@ if choice == "d":
 
 # Clear all existing files in the exports folder
 else:
-    archive_folder = os.path.join(output_folder, "../../99_Archive/Database-Output")
+    archive_folder = os.path.join(output_folder, "../../99_Archive/Old-Database-Exports")
     os.makedirs(archive_folder, exist_ok=True)  # ensure archive folder exists
 
     for f in glob.glob(os.path.join(output_folder, "*")):
