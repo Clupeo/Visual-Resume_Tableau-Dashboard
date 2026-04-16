@@ -2,15 +2,15 @@
 # Install with: pip install -r requirements.txt
 
 # Database & ORM
-psycopg2-binary==2.9.9
-SQLAlchemy==2.0.23
+psycopg2-binary==2.9.10
+SQLAlchemy==2.0.27
 
 # Data Processing
-pandas==2.1.3
-numpy==1.26.2
+pandas==2.2.0
+numpy==1.26.4
 
 # Excel I/O
-openpyxl==3.11.0
+openpyxl==3.1.5
 
 # Utilities
 python-dotenv==1.0.0
