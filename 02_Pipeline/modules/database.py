@@ -127,16 +127,16 @@ class Skill(Base):
     skill_id = Column(Integer, primary_key=True)
     name = Column(String)
     category = Column(String)
+    proficiency_level = Column(Integer)
     description = Column(String)
     project_occurance = Column("project occurance", String)  # Space in column name from Excel
 
 
 class PersonSkill(Base):
-    """Junction table: Links person to skills with proficiency level."""
+    """Junction table: Links person to skills (proficiency now in skills table)."""
     __tablename__ = "person_skills"
     person_id = Column(Integer, ForeignKey("person.person_id"), primary_key=True)
     skill_id = Column(Integer, ForeignKey("skills.skill_id"), primary_key=True)
-    proficiency_level = Column(Integer)
 
 
 class Tool(Base):
@@ -146,15 +146,15 @@ class Tool(Base):
     name = Column(String)
     category = Column(String)
     description = Column(String)
+    proficiency_level = Column(Integer)
     project_occurance = Column("project occurance", String)  # Space in column name from Excel
 
 
 class PersonTool(Base):
-    """Junction table: Links person to tools with proficiency level."""
+    """Junction table: Links person to tools (proficiency now in tools table)."""
     __tablename__ = "person_tools"
     person_id = Column(Integer, ForeignKey("person.person_id"), primary_key=True)
     tool_id = Column(Integer, ForeignKey("tools.tool_id"), primary_key=True)
-    proficiency_level = Column(Integer)
 
 
 class PortfolioSkill(Base):

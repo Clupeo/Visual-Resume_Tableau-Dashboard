@@ -7,10 +7,10 @@ SELECT DISTINCT
     COALESCE(d.domain_id, 0) AS domain_id, COALESCE(d.name, '') AS domain_name,
     COALESCE(s.skill_id, 0) AS skill_id, COALESCE(s.name, '') AS skill_name,
     COALESCE(s.category, '') AS skill_category, COALESCE(s.description, '') AS skill_description,
-    CAST(COALESCE(0, 0) AS INTEGER) AS skill_proficiency,
+    CAST(COALESCE(s.proficiency_level, 0) AS INTEGER) AS skill_proficiency,
     COALESCE(t.tool_id, 0) AS tool_id, COALESCE(t.name, '') AS tool_name,
     COALESCE(t.category, '') AS tool_category, COALESCE(t.description, '') AS tool_description,
-    CAST(COALESCE(0, 0) AS INTEGER) AS tool_proficiency
+    CAST(COALESCE(t.proficiency_level, 0) AS INTEGER) AS tool_proficiency
 FROM portfolio p
 LEFT JOIN portfolio_domain pd ON pd.portfolio_id = p.portfolio_id
 LEFT JOIN domain d ON d.domain_id = pd.domain_id
