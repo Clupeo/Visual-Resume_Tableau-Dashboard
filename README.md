@@ -1,4 +1,4 @@
-# Visual Resume Dashboard - Complete Guide
+# Visual Résumé - Tableau Dashboard
 
 Interactive Tableau dashboard showcasing professional expertise, career timeline, skills, and portfolio projects. A data-driven alternative to traditional resumes.
 
