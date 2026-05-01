@@ -249,6 +249,29 @@ class DatabaseManager:
                 logger.error(f"❌ SQL execution error: {e}")
                 conn.rollback()
                 raise
+    
+    @classmethod
+    def get_view_as_dataframe(cls, view_name: str):
+        """
+        Query a SQL view and return results as pandas DataFrame.
+        
+        Args:
+            view_name: Name of the SQL view to query
+            
+        Returns:
+            pandas.DataFrame: Query results
+        """
+        import pandas as pd
+        
+        engine = cls.get_engine()
+        try:
+            query = f"SELECT * FROM {view_name};"
+            df = pd.read_sql_query(query, engine)
+            logger.info(f"✅ Loaded {len(df)} rows from {view_name}")
+            return df
+        except Exception as e:
+            logger.error(f"❌ Failed to load {view_name}: {e}")
+            raise
 
 
 if __name__ == "__main__":

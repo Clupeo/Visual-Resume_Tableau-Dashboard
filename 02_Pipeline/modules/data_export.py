@@ -38,6 +38,7 @@ class DataExporter:
         "timeline_view",
         "certificate_view",
         "filter_view",
+        "person_view",
     }
     
     # SQL view definitions (embedded so pipeline works even if .sql files are deleted)
@@ -99,6 +100,15 @@ FROM domain d
 WHERE d.name IS NOT NULL
 ORDER BY d.name;
         """,
+        
+        "person_view": """
+DROP VIEW IF EXISTS person_view CASCADE;
+CREATE OR REPLACE VIEW person_view AS
+SELECT p.person_id, p.title, p.first_name, p.last_name,
+       p.city, p.province, p.country, p.birth_date
+FROM person p
+ORDER BY p.person_id;
+        """,
     }
     
     @staticmethod
@@ -155,7 +165,7 @@ ORDER BY d.name;
     
     @staticmethod
     def export_views_to_excel(views: Optional[Set[str]] = None) -> None:
-        """Export SQL views to Excel files."""
+        """Export SQL views to single Excel file with multiple sheets."""
         views = views or DataExporter.EXPORT_VIEWS
         db = DatabaseManager()
         
@@ -166,10 +176,12 @@ ORDER BY d.name;
             for f in Config.EXPORT_FOLDER.glob("*.xlsx"):
                 f.unlink()
         
+        output_path = Config.EXPORT_FOLDER / Config.EXCEL_OUTPUT_FILENAME
+        
         engine = db.get_engine()
         with engine.connect() as conn:
-            for view_name in sorted(views):
-                df = pd.read_sql(f"SELECT * FROM {view_name};", conn)
-                filename = f"{view_name}.xlsx"
-                file_path = Config.EXPORT_FOLDER / filename
-                df.to_excel(file_path, sheet_name=view_name, index=False)
+            # Use ExcelWriter to create single file with multiple sheets
+            with pd.ExcelWriter(output_path, engine="openpyxl") as writer:
+                for view_name in sorted(views):
+                    df = pd.read_sql(f"SELECT * FROM {view_name};", conn)
+                    df.to_excel(writer, sheet_name=view_name, index=False)

@@ -42,9 +42,11 @@ class Config:
         "02_Pipeline/outputs"
     )
     SQL_FOLDER: Path = PROJECT_ROOT / "02_Pipeline/sql"
+    EXCEL_OUTPUT_FILENAME: str = "visual-Resume_dashboard-data.xlsx"
     
-    # Export Configuration
-    ARCHIVE_FOLDER: Path = PROJECT_ROOT / "99_Archive/Old-Database-Exports"
+    # Google Sheets Configuration (Optional)
+    GOOGLE_SHEETS_ID: str = os.getenv("GOOGLE_SHEETS_ID", "")
+    GOOGLE_CREDENTIALS_PATH: str = os.getenv("GOOGLE_CREDENTIALS_PATH", "credentials.json")
     
     @classmethod
     def get_database_url(cls) -> str:
@@ -85,7 +87,6 @@ class Config:
     def ensure_export_folder(cls) -> None:
         """Create export folder if it doesn't exist."""
         cls.EXPORT_FOLDER.mkdir(parents=True, exist_ok=True)
-        cls.ARCHIVE_FOLDER.mkdir(parents=True, exist_ok=True)
 
 
 if __name__ == "__main__":
@@ -95,3 +96,5 @@ if __name__ == "__main__":
     print(f"   Excel Source: {Config.EXCEL_SOURCE_PATH}")
     print(f"   Export Folder: {Config.EXPORT_FOLDER}")
     print(f"   SQL Folder: {Config.SQL_FOLDER}")
+    print(f"   Google Sheets ID: {'✅ Set' if Config.GOOGLE_SHEETS_ID else '⚠️  Not set (optional)'}")
+    print(f"   Google Credentials: {Config.GOOGLE_CREDENTIALS_PATH}")

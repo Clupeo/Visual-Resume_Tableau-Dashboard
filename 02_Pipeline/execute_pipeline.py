@@ -22,7 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from config import Config
-from modules import DatabaseManager, DataImporter, DataExporter
+from modules import DatabaseManager, DataImporter, DataExporter, GoogleSheetsExporter
 
 
 def main():
@@ -69,12 +69,41 @@ def main():
         DataExporter.export_views_to_excel()
         print("   ✅ Exports complete")
         
+        # Step 6: Export to Google Sheets (Optional)
+        print("\n6️⃣  Exporting to Google Sheets...")
+        try:
+            exporter = GoogleSheetsExporter()
+            if exporter.authenticate():
+                # Load all views as DataFrames
+                dataframes = {}
+                for view_name in DataExporter.EXPORT_VIEWS:
+                    try:
+                        df = DatabaseManager.get_view_as_dataframe(view_name)
+                        dataframes[view_name] = df
+                    except Exception as e:
+                        print(f"   ⚠️  Warning: Failed to load {view_name}: {e}")
+                
+                # Export to Google Sheets
+                if dataframes:
+                    if exporter.write_dataframes_to_sheets(dataframes):
+                        print("   ✅ Google Sheets export successful")
+                    else:
+                        print("   ⚠️  Google Sheets export failed (continuing with Excel-only mode)")
+                else:
+                    print("   ⚠️  No data to export to Google Sheets")
+            else:
+                print("   ⚠️  Google Sheets authentication failed (skipping Google Sheets export)")
+        except Exception as e:
+            print(f"   ⚠️  Google Sheets export error: {e}")
+        
         print("\n" + "=" * 70)
         print("  ✅ Pipeline finished successfully!")
         print("=" * 70 + "\n")
         print(f"   📁 Excel outputs: {Config.EXPORT_FOLDER}")
         print(f"   📁 SQL files: {Config.SQL_FOLDER}")
-        print("   📊 Files: portfolio_view.xlsx, timeline_view.xlsx, certificate_view.xlsx, filter_view.xlsx\n")
+        if Config.GOOGLE_SHEETS_ID:
+            print(f"   ☁️  Google Sheets: https://docs.google.com/spreadsheets/d/{Config.GOOGLE_SHEETS_ID}")
+        print("   📊 Files exported: portfolio_view, timeline_view, certificate_view, filter_view, person_view\n")
         
         return 0
         
