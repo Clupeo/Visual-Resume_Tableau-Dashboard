@@ -45,6 +45,7 @@ Then connect these Excel files to Tableau and build your dashboard or use live c
 
 ## Project Structure
 
+```
 Visual-Resume_Tableau-Dashboard/
 │
 ├── 01_Data/                          Data layer
@@ -62,6 +63,7 @@ Visual-Resume_Tableau-Dashboard/
 ├── 03_Dashboard/                     Tableau workbook
 ├── .env.example                      Configuration template
 └── requirements.txt                  Python dependencies
+```
 
 ---
 
