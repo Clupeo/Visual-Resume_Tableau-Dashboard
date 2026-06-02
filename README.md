@@ -145,6 +145,25 @@ python execute_pipeline.py
 
 ---
 
+## Colour Guide for Visual Dashboard
+
+The dashboard employs a cohesive blue-turquoise gradient scheme to visually distinguish functional domains. Each colour corresponds to a specific category:
+
+| Domain | Colour | RGB Values |
+|--------|--------|------------|
+| Education | Turquoise | R149 G206 G207 |
+| Researcher & Scientific Skills/Tools | Light Blue | R185 G221 B241 |
+| Data Scientist & Programming/Technical Skills/Tools | Medium Blue | R114 G163 B201 |
+| Consultant & Soft Skills/Tools | Dark Blue | R61 G106 B152 |
+| Inactive Elements | Grey | R186 G176 B172 |
+
+**Usage Guidelines:**
+- Apply colours consistently across all visualisations to maintain domain recognition
+- Use grey exclusively for disabled or inactive UI elements
+- Ensure sufficient contrast for accessibility compliance
+
+---
+
 ## Version Info
 
 - **Version:** 2.0
