@@ -166,8 +166,7 @@ The dashboard employs a cohesive blue-turquoise gradient scheme to visually dist
 
 ## Version Info
 
-- **Version:** 2.0
-- **Last Updated:** May 1, 2026
+- **Last Updated:** June 2, 2026
 - **Status:** Released
 - **Python:** 3.10+
 - **PostgreSQL:** 12+
