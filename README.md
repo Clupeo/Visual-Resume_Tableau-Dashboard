@@ -120,8 +120,7 @@ Run Pipeline: Execute python execute_pipeline.py
 # Save the file
 
 # 2. Run pipeline
-cd 02_Pipeline
-python execute_pipeline.py
+python 02_Pipeline/execute_pipeline.py
 
 # When prompted to overwrite files, enter 'Y'
 
